@@ -28,10 +28,13 @@ public class PlayerListener implements Listener
         String command = event.getMessage();
         final Player player = event.getPlayer();
 
-        Bukkit.getOnlinePlayers().stream().filter((pl) -> (plugin.allowedplayers.contains(pl.getName()))).forEach((pl) ->
+        for (Player staff : Bukkit.getOnlinePlayers())
         {
-            pl.sendMessage(ChatColor.GRAY + player.getName() + " : " + command);
-        });
+            if (plugin.allowedplayers.contains(staff))
+            {
+                staff.sendMessage(ChatColor.GRAY + player.getName() + " : " + command);
+            }
+        }
 
         // This is for Debugging only now
         // LoggerUtils.info(plugin, command);

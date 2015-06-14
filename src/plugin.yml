@@ -1,6 +1,6 @@
 name: CommandViewer
 authors: [Wild1145 / Ryan Wild]
-version: 3.0
+version: 3.0.1
 main: com.superiornetworks.commandviewer.CommandViewer
 commands:
   cmdviewer:
