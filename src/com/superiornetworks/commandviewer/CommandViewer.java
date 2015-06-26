@@ -1,13 +1,16 @@
 package com.superiornetworks.commandviewer;
 
+import com.superiornetworks.commandviewer.commands.Command_cmdtoggle;
+import com.superiornetworks.commandviewer.listeners.PlayerListener;
+import java.util.List;
 import net.pravian.bukkitlib.BukkitLib;
 import net.pravian.bukkitlib.command.BukkitCommandHandler;
 import net.pravian.bukkitlib.config.YamlConfig;
 import net.pravian.bukkitlib.implementation.BukkitPlugin;
 import net.pravian.bukkitlib.util.LoggerUtils;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
-import com.superiornetworks.commandviewer.listeners.PlayerListener;
-import java.util.List;
 
 public class CommandViewer extends BukkitPlugin
 {
@@ -16,10 +19,10 @@ public class CommandViewer extends BukkitPlugin
     public BukkitCommandHandler handler;
 
     // YAML Files
-    public YamlConfig config;
-    public YamlConfig players;
-
-    public List<String> allowedplayers;
+    public static YamlConfig config;
+    public static YamlConfig players;
+    //
+    public static List<String> allowedplayers;    
 
     @Override
     public void onLoad()
@@ -32,14 +35,14 @@ public class CommandViewer extends BukkitPlugin
     public void onEnable()
     {
         BukkitLib.init(plugin);
-        //  handler.setCommandLocation(Command_cmdviewer.class.getPackage());
+        handler.setCommandLocation(Command_cmdtoggle.class.getPackage());
         this.config = new YamlConfig(plugin, "config.yml");
         this.players = new YamlConfig(plugin, "players.yml");
         config.load();
         players.load();
         final PluginManager pm = plugin.getServer().getPluginManager();
         pm.registerEvents(new PlayerListener(plugin), plugin);
-        allowedplayers = (List<String>) plugin.players.getList("playerlist");
+        plugin.allowedplayers = (List<String>) plugin.players.getList("playerlist");
 
         LoggerUtils.info(plugin, "Has been created by Wild1145 - Check out www.superior-networks.com for great value servers!");
     }
@@ -51,10 +54,10 @@ public class CommandViewer extends BukkitPlugin
         LoggerUtils.info(plugin, "Has been created by Wild1145 - Check out www.superior-networks.com for great value servers!");
     }
 
-    /*  @Override
-     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
-     {
-     return handler.handleCommand(sender, cmd, commandLabel, args);
-     }
-     */
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
+    {
+        return handler.handleCommand(sender, cmd, commandLabel, args);
+    }
+
 }

@@ -3,6 +3,6 @@ authors: [Wild1145 / Ryan Wild]
 version: 3.0.1
 main: com.superiornetworks.commandviewer.CommandViewer
 commands:
-  cmdviewer:
+  cmdtoggle:
     description: Toggles your command viewing ability on and off
     usage: <command>

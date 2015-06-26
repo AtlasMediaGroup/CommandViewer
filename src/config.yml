@@ -8,3 +8,13 @@ commandhighlights:
     - stop
     - reload
     
+## These are the messages that will display on screen. Bukkit chat colours are supported, please correct / change these as appropriate if you do not wish to use English or wish to change the messages in any other way
+
+toggledoff: "&8[&4Command Viewer&8] - &1Command Viewing Toggled Off."
+toggledon: "&8[&4Command Viewer&8] - &1Command Viewing Toggled On."
+
+## These will be used shortly for player logins 
+nolongerallowed: "&8[&4Command Viewer&8] - &1You are no longer permitted access to the command viewer."
+nowallowed: "&8[&4Command Viewer&8] - &1You have been granted access to the command viewer - Use it wisely."
+
+autoaddplayers: True
