@@ -3,61 +3,63 @@ package com.superiornetworks.commandviewer;
 import com.superiornetworks.commandviewer.commands.Command_cmdtoggle;
 import com.superiornetworks.commandviewer.listeners.PlayerListener;
 import java.util.List;
-import net.pravian.bukkitlib.BukkitLib;
-import net.pravian.bukkitlib.command.BukkitCommandHandler;
-import net.pravian.bukkitlib.config.YamlConfig;
-import net.pravian.bukkitlib.implementation.BukkitPlugin;
-import net.pravian.bukkitlib.util.LoggerUtils;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import net.pravian.aero.plugin.AeroPlugin;
+import net.pravian.aero.util.Loggers;
+import net.pravian.aero.config.YamlConfig;
+import net.pravian.aero.command.handler.AeroCommandHandler;
+import net.pravian.aero.command.handler.SimpleCommandHandler;
 import org.bukkit.plugin.PluginManager;
+import com.superiornetworks.commandviewer.commands.DummyCommand;
 
-public class CommandViewer extends BukkitPlugin
-{
+public class CommandViewer extends AeroPlugin<CommandViewer>
+  {
 
-    private CommandViewer plugin;
-    public BukkitCommandHandler handler;
-
+    public static CommandViewer plugin;
     // YAML Files
-    public static YamlConfig config;
-    public static YamlConfig players;
+    public YamlConfig pluginConfig;
+    public YamlConfig players;
     //
-    public static List<String> allowedplayers;    
+    public List<String> allowedplayers;
+    public List<String> keywords;
+    //
+    public static AeroCommandHandler handler;
 
     @Override
-    public void onLoad()
+    public void load()
     {
-        this.plugin = this;
-        this.handler = new BukkitCommandHandler(plugin);
+        CommandViewer.plugin = this;
     }
 
     @Override
-    public void onEnable()
+    public void enable()
     {
-        BukkitLib.init(plugin);
-        handler.setCommandLocation(Command_cmdtoggle.class.getPackage());
-        this.config = new YamlConfig(plugin, "config.yml");
-        this.players = new YamlConfig(plugin, "players.yml");
-        config.load();
+        CommandViewer.plugin = this;
+        //
+        handler = new SimpleCommandHandler(plugin);
+        handler.setCommandClassPrefix("Command_");
+        handler.loadFrom(DummyCommand.class.getPackage());
+        handler.registerAll();
+        //
+        plugin.pluginConfig = new YamlConfig(plugin, "config.yml");
+        plugin.players = new YamlConfig(plugin, "players.yml");
+        //
+        pluginConfig.load();
         players.load();
+        //
         final PluginManager pm = plugin.getServer().getPluginManager();
         pm.registerEvents(new PlayerListener(plugin), plugin);
+        //
         plugin.allowedplayers = (List<String>) plugin.players.getList("playerlist");
-
-        LoggerUtils.info(plugin, "Has been created by Wild1145 - Check out www.superior-networks.com for great value servers!");
+        plugin.keywords = (List<String>) plugin.pluginConfig.getList("keywords");
+        //
+        Loggers.info(plugin, "Has been created by Wild1145 - Check out www.superior-networks.com for great value servers!");
     }
 
     @Override
-    public void onDisable()
+    public void disable()
     {
-        config.save();
-        LoggerUtils.info(plugin, "Has been created by Wild1145 - Check out www.superior-networks.com for great value servers!");
+        pluginConfig.save();
+        Loggers.info(plugin, "Has been created by Wild1145 - Check out www.superior-networks.com for great value servers!");
+        CommandViewer.plugin = null;
     }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
-    {
-        return handler.handleCommand(sender, cmd, commandLabel, args);
-    }
-
-}
+  }

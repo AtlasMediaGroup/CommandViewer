@@ -2,12 +2,6 @@
 ## Command Viewer Config
 ## 
 
-## Currently this config will do absolutly nothing, however I want to make sure that is is ready for the 2.1 release. 
-
-commandhighlights:
-    - stop
-    - reload
-    
 ## These are the messages that will display on screen. Bukkit chat colours are supported, please correct / change these as appropriate if you do not wish to use English or wish to change the messages in any other way
 
 toggledoff: "&8[&4Command Viewer&8] - &1Command Viewing Toggled Off."
@@ -18,3 +12,9 @@ nolongerallowed: "&8[&4Command Viewer&8] - &1You are no longer permitted access 
 nowallowed: "&8[&4Command Viewer&8] - &1You have been granted access to the command viewer - Use it wisely."
 
 autoaddplayers: True
+
+## Currently this config will do absolutly nothing, however I want to make sure that is is ready for a future release.
+
+commandhighlights:
+    - stop
+    - reload

@@ -1,35 +1,36 @@
 package com.superiornetworks.commandviewer.commands;
 
 import com.superiornetworks.commandviewer.CommandViewer;
-import net.pravian.bukkitlib.command.BukkitCommand;
-import net.pravian.bukkitlib.command.CommandPermissions;
-import net.pravian.bukkitlib.command.SourceType;
-import net.pravian.bukkitlib.util.ChatUtils;
+import net.pravian.aero.command.SimpleCommand;
+import net.pravian.aero.command.CommandOptions;
+import net.pravian.aero.command.SourceType;
+import net.pravian.aero.util.ChatUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-@CommandPermissions(source = SourceType.ANY, permission = "commandviewer.viewcommands")
-public class Command_cmdtoggle extends BukkitCommand
-{
-
+@CommandOptions(source = SourceType.PLAYER, subPermission = "viewcommands")
+public class Command_cmdtoggle extends SimpleCommand<CommandViewer>
+  {
     @Override
-    public boolean run(CommandSender commandSender, Command command, String commandLabel, String[] args)
+    public boolean onCommand(CommandSender commandSender, Command command, String commandLabel, String[] args)
     {
-
-        if (CommandViewer.allowedplayers.contains(commandSender.getName()))
+        if (plugin.allowedplayers.contains(commandSender.getName()))
         {
-
-            CommandViewer.allowedplayers.remove(commandSender.getName());
-            commandSender.sendMessage(ChatUtils.colorize(CommandViewer.config.getString("toggledoff")));
+            plugin.allowedplayers.remove(commandSender.getName());
+            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "Player Removed");
+            commandSender.sendMessage(ChatUtils.colorize(plugin.pluginConfig.getString("toggledoff")));
+            commandSender.sendMessage(ChatUtils.colorize("&5&lTest Message &4Wooo!"));
 
         }
         else
         {
-            CommandViewer.allowedplayers.add(commandSender.getName());
-            commandSender.sendMessage(ChatUtils.colorize(CommandViewer.config.getString("toggledon")));
-            
+            plugin.allowedplayers.add(commandSender.getName());
+            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "Player Added");
+            commandSender.sendMessage(ChatUtils.colorize(plugin.pluginConfig.getString("toggledon")));
+            commandSender.sendMessage(ChatUtils.colorize("&5&lTest Message &4WoooHoooo!"));
         }
         return true;
-
     }
-}
+  }

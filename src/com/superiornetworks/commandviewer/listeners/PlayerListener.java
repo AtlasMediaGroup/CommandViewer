@@ -1,8 +1,8 @@
 package com.superiornetworks.commandviewer.listeners;
 
 import com.superiornetworks.commandviewer.CommandViewer;
-import net.pravian.bukkitlib.util.ChatUtils;
-import net.pravian.bukkitlib.util.LoggerUtils;
+import net.pravian.aero.util.Loggers;
+import net.pravian.aero.util.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -47,32 +47,32 @@ public class PlayerListener implements Listener
 
         if (player.hasPermission("commandviewer.viewcommands"))
         {
-            if (CommandViewer.config.getBoolean("autoaddplayers"))
+            if (plugin.pluginConfig.getBoolean("autoaddplayers"))
             {
 
-                if (CommandViewer.allowedplayers.contains(player.getName()))
+                if (plugin.allowedplayers.contains(player.getName()))
                 {
-                    LoggerUtils.info(plugin, player.getName() + "is already authorised");
+                    Loggers.info(plugin, player.getName() + "is already authorised");
                 }
                 else
                 {
-                    CommandViewer.allowedplayers.add(player.getName());
-                    LoggerUtils.info(plugin, player.getName() + "has been added to the authorised players list.");
-                  //  player.sendMessage(CommandViewer.config.getString(ChatUtils.colorize("nowalloed")));
+                    plugin.allowedplayers.add(player.getName());
+                    Loggers.info(plugin, player.getName() + "has been added to the authorised players list.");
+                    player.sendMessage(plugin.pluginConfig.getString(ChatUtils.colorize("nowallowed")));
                 }
             }
         }
         else
         {
-            if (CommandViewer.allowedplayers.contains(player.getName()))
+            if (plugin.allowedplayers.contains(player.getName()))
             {
-                CommandViewer.allowedplayers.remove(player.getName());
-                LoggerUtils.info(plugin, player.getName() + "Has been removed from the authorised players list");
-              //  player.sendMessage(CommandViewer.config.getString(ChatUtils.colorize("nolongerallowed")));
+                plugin.allowedplayers.remove(player.getName());
+                Loggers.info(plugin, player.getName() + "Has been removed from the authorised players list");
+                player.sendMessage(plugin.pluginConfig.getString(ChatUtils.colorize("nolongerallowed")));
             }
             else
             {
-                LoggerUtils.info(plugin, player.getName() + "does not have the required permissions and was not already authorised. ");
+                Loggers.info(plugin, player.getName() + "does not have the required permissions and was not already authorised. ");
             }
         }
     }
