@@ -52,13 +52,13 @@ public class PlayerListener implements Listener
 
                 if (plugin.allowedplayers.contains(player.getName()))
                 {
-                    Loggers.info(plugin, player.getName() + "is already authorised");
+                    Loggers.info(plugin, player.getName() + " is already authorised");
                 }
                 else
                 {
                     plugin.allowedplayers.add(player.getName());
-                    Loggers.info(plugin, player.getName() + "has been added to the authorised players list.");
-                    player.sendMessage(plugin.pluginConfig.getString(ChatUtils.colorize("nowallowed")));
+                    Loggers.info(plugin, player.getName() + " has been added to the authorised players list.");
+                    player.sendMessage(ChatUtils.colorize(plugin.pluginConfig.getString("nowallowed")));
                 }
             }
         }
@@ -67,12 +67,12 @@ public class PlayerListener implements Listener
             if (plugin.allowedplayers.contains(player.getName()))
             {
                 plugin.allowedplayers.remove(player.getName());
-                Loggers.info(plugin, player.getName() + "Has been removed from the authorised players list");
-                player.sendMessage(plugin.pluginConfig.getString(ChatUtils.colorize("nolongerallowed")));
+                Loggers.info(plugin, player.getName() + " Has been removed from the authorised players list");
+                player.sendMessage(ChatUtils.colorize(plugin.pluginConfig.getString("nolongerallowed")));
             }
             else
             {
-                Loggers.info(plugin, player.getName() + "does not have the required permissions and was not already authorised. ");
+                Loggers.info(plugin, player.getName() + " does not have the required permissions and was not already authorised. ");
             }
         }
     }
