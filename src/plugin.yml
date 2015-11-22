@@ -1,6 +1,6 @@
 name: CommandViewer
 authors: [Wild1145 / Ryan Wild]
-version: 3.1
+version: 3.1.1
 main: com.superiornetworks.commandviewer.CommandViewer
 softdepend: [Aero]
 commands:
