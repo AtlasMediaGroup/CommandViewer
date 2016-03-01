@@ -1,6 +1,5 @@
 package com.superiornetworks.commandviewer;
 
-import com.superiornetworks.commandviewer.commands.Command_cmdtoggle;
 import com.superiornetworks.commandviewer.listeners.PlayerListener;
 import java.util.List;
 import net.pravian.aero.plugin.AeroPlugin;
@@ -9,7 +8,7 @@ import net.pravian.aero.config.YamlConfig;
 import net.pravian.aero.command.handler.AeroCommandHandler;
 import net.pravian.aero.command.handler.SimpleCommandHandler;
 import org.bukkit.plugin.PluginManager;
-import com.superiornetworks.commandviewer.commands.DummyCommand;
+import com.superiornetworks.commandviewer.commands.Command_cmdtoggle;
 
 public class CommandViewer extends AeroPlugin<CommandViewer>
   {
@@ -37,7 +36,7 @@ public class CommandViewer extends AeroPlugin<CommandViewer>
         //
         handler = new SimpleCommandHandler(plugin);
         handler.setCommandClassPrefix("Command_");
-        handler.loadFrom(DummyCommand.class.getPackage());
+        handler.loadFrom(Command_cmdtoggle.class.getPackage());
         handler.registerAll();
         //
         plugin.pluginConfig = new YamlConfig(plugin, "config.yml");
